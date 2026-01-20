@@ -1,0 +1,53 @@
+SQL> CREATE TABLE sit_info (
+  2    prn     NUMBER PRIMARY KEY,
+  3    st_name VARCHAR2(100),
+  4    m1      NUMBER(3),
+  5    m2      NUMBER(3),
+  6    m3      NUMBER(3)
+  7  );
+
+
+
+SQL> INSERT INTO sit_info VALUES (101, 'Amit',   85, 78, 90);
+
+
+
+SQL> INSERT INTO sit_info VALUES (102, 'Neha',   88, 92, 81);
+
+
+
+SQL> INSERT INTO sit_info VALUES (103, 'Rahul',  70, 65, 72);
+
+
+
+SQL> INSERT INTO sit_info VALUES (104, 'Priya',  91, 89, 95);
+
+
+
+SQL> INSERT INTO sit_info VALUES (105, 'Suresh', 60, 58, 62);
+
+
+
+SQL> INSERT INTO sit_info VALUES (106, 'Kavya',  77, 80, 79);
+
+
+
+SQL> INSERT INTO sit_info VALUES (107, 'Anil',   68, 74, 71);
+
+
+
+SQL> ALTER TABLE sit_info
+  2  ADD (
+  3    total NUMBER(5),
+  4    percentage NUMBER(5,2)
+  5  );
+
+
+
+SQL> UPDATE sit_info
+  2  SET total = m1 + m2 + m3,
+  3      percentage = (m1 + m2 + m3) / 3;
+
+
+
+SQL> COMMIT;
