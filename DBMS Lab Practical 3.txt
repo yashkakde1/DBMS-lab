@@ -1,0 +1,80 @@
+EXPERIMENT - 3
+1. To display instructors from computer science department:-
+	select * from instructor where dept_id=(select dept_id from department where name='Computer Science');
+
+
+2. Using Join:-
+	select i.instructor_id, i.Name, i.salary, d.name from instructor i join department d on i.dept_id=d.dept_id where d.name='Computer Science';
+
+
+3. a) Find the average salary of instructors in the Computer Science department.:-
+	select d.name, avg(i.salary) as AVG_SAL from instructor i join department d on i.dept_id=d.dept_id where d.name='Computer Science' group by d.name;
+
+
+4. b) Find the average salary in each department.:-
+	select d.name, avg(i.salary) as AVG_SAL from department d join instructor i on d.dept_id=i.dept_id group by d.name;
+
+
+5. c) What is the total salary of all teachers earning more than 30K?:-
+	select sum(salary) as total_sal from instructor where salary>30000;
+	select sum(salary) as total_sal from instructor where salary>80000;
+
+#] Now add this TABLE DATA in SQL:-
+
+CREATE TABLE STUDENT (
+    student_id NUMBER(38) PRIMARY KEY,
+    name       VARCHAR2(50) NOT NULL,
+    tot_cred   NUMBER(3)
+);
+
+INSERT INTO STUDENT VALUES (101, 'Arjun', 20);
+INSERT INTO STUDENT VALUES (102, 'Meera', 22);
+INSERT INTO STUDENT VALUES (106, 'Rahul', 18);
+INSERT INTO STUDENT VALUES (107, 'Sneha', 19);
+INSERT INTO STUDENT VALUES (108, 'Kiran', 21);
+
+CREATE TABLE ENROLLMENT (
+    enrollment_id INT PRIMARY KEY,
+    student_id INT NOT NULL,
+    section_id INT NOT NULL,
+    enrollment_date DATE,
+    status VARCHAR(20) DEFAULT 'ENROLLED',
+    FOREIGN KEY (student_id) REFERENCES STUDENT(student_id),
+    FOREIGN KEY (section_id) REFERENCES SECTION(section_id)
+);
+
+INSERT INTO ENROLLMENT VALUES (1, 101, 1, DATE '2024-07-01', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (2, 102, 1, DATE '2024-07-01', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (3, 101, 2, DATE '2024-07-02', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (4, 102, 2, DATE '2024-07-02', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (5, 106, 3, DATE '2024-07-03', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (6, 107, 4, DATE '2024-07-03', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (7, 108, 5, DATE '2024-07-04', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (8, 101, 6, DATE '2024-07-04', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (9, 102, 7, DATE '2024-07-05', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (10,106, 8, DATE '2024-07-05', 'ENROLLED');
+
+
+
+6. d) List the number of students enrolled in each course:-
+	SELECT C.course_id, C.title, COUNT(E.student_id) AS enrolled_students FROM COURSE C LEFT JOIN SECTION S ON C.course_id = S.course_id LEFT JOIN ENROLLMENT E ON S.section_id = E.section_id GROUP BY C.course_id, C.title ORDER BY C.course_id;
+
+
+7. e) Find the names of all departments whose building name include the substring “Computer Science”.:-
+   f) Find the names of the departments whose names contain the string “sci” as a substring, regardless the case.:-
+	select * from department where name = 'Computer Science';
+	select * from department where lower(name) like '%sci%';
+	select * from department where lower(name) like 'computer science';
+	select * from department where lower(name) like '%science%';
+
+
+9. g) Display the length of the name of all the students.:-
+	select length(name) from student;
+
+
+10. h)Retrieve total number of instructors.:-
+	select count(name) from instructor;
+	
+
+	
+	
